@@ -4,6 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Obsidian Break: Latte vs Roast, a territory duel against an adaptive AI.",
+  "homepage": "https://obsidianbreak.github.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obsidianbreak/obsidianbreak.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/obsidianbreak/obsidianbreak.github.io/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
