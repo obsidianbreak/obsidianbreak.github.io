@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "experiments": [
+    { "id": "win_share", "param": "winShare", "arms": [{ "id": "w70", "value": 0.7 }, { "id": "w85", "value": 0.85 }] },
+    { "id": "gift_cadence", "param": "giftEverySec", "arms": [{ "id": "g5", "value": 5 }, { "id": "g7", "value": 7 }, { "id": "g10", "value": 10 }] },
+    { "id": "card_cost", "param": "cardCostScale", "arms": [{ "id": "c8", "value": 0.8 }, { "id": "c10", "value": 1 }, { "id": "c12", "value": 1.2 }] }
+  ],
+  "rules": [
+    { "id": "newcomer-no-stone", "phase": "pre", "when": { "fact": "matchesPlayed", "op": "<", "value": 3 }, "then": [{ "set": "disableHardMutators", "value": true }] },
+    { "id": "gentle-after-losses", "phase": "pre", "when": { "fact": "lossStreak", "op": ">=", "value": 2 }, "then": [{ "add": "playerTurnBonus", "value": 0.4 }, { "tag": "assist" }] },
+    { "id": "low-power-lite", "phase": "pre", "when": { "fact": "lowPower", "op": "==", "value": true }, "then": [{ "set": "lite", "value": true }] },
+    { "id": "catch-up", "phase": "live", "when": { "all": [{ "fact": "deficit", "op": ">", "value": 0.08 }, { "fact": "timeFrac", "op": ">", "value": 0.35 }] }, "then": [{ "mul": "playerTurnMul", "value": 1.15 }, { "mul": "aiReactionMul", "value": 1.2 }] },
+    { "id": "big-deficit", "phase": "live", "when": { "all": [ { "fact": "deficit", "op": ">", "value": 0.25 }, { "fact": "timeFrac", "op": ">", "value": 0.25 } ] }, "then": [ { "mul": "playerTurnMul", "value": 1.25 }, { "mul": "aiTurnMul", "value": 0.85 }, { "mul": "aiReactionMul", "value": 1.35 } ] },
+    { "id": "lead-pressure", "phase": "live", "when": { "all": [{ "fact": "deficit", "op": "<", "value": -0.12 }, { "fact": "timeFrac", "op": ">", "value": 0.35 }] }, "then": [{ "mul": "aiTurnMul", "value": 1.12 }] },
+    { "id": "long-session-note", "phase": "pre", "when": { "fact": "sessionMinutes", "op": ">=", "value": 45 }, "then": [{ "tag": "break-note" }] }
+  ]
+}
