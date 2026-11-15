@@ -1,9 +1,12 @@
 # Replacing the repo
 
-1. In your local clone of `hassanireza/obsidianBreak`, delete the old `src/` and `public/` folders. Every file in them is replaced or no longer needed.
+1. In your local clone of `obsidianbreak/obsidianbreak.github.io`, delete the old `src/` and `public/` folders. Every file in them is replaced or no longer needed.
 2. Unzip this archive into the repo root and overwrite everything.
 3. Run `npm ci && npm run typecheck && npm run build`.
-4. Commit and push. The existing GitHub Pages workflow deploys it.
+4. In the repo go to Settings, Pages, and set Source to GitHub Actions.
+5. Commit and push to `main`. The workflow deploys to https://obsidianbreak.github.io/.
+
+Because the address changed, browsers treat it as a new site, so saved progress from the old address does not carry over. Players should delete the old home screen icon and add the new one.
 
 `package.json` dependencies and `package-lock.json` are unchanged, so `npm ci` works as before.
 

@@ -207,36 +207,35 @@ export class BoardRenderer {
   }
 
   /**
-   * Gift announcements are drawn inside the canvas. Canvas text is
-   * rasterized at device resolution, so it stays sharp on iPhone, and it
-   * is centered on the board exactly.
+   * Gift announcements are small centered pills drawn inside the canvas.
+   * Canvas text is sharp on iPhone, and the pills are narrow and short so
+   * the board around them stays fully visible.
    */
   private drawBanner(boardW: number, v: ViewState): void {
     const ctx = this.ctx;
-    const rowH = Math.max(22, Math.round(this.cell * 1.3));
-    const font = Math.round(rowH * 0.46);
-    const margin = 8;
-    const w = Math.round(boardW - margin * 2);
-    let y = margin;
+    const rowH = 20;
+    const font = 10;
+    let y = 6;
     ctx.save();
     ctx.font = `800 ${font}px Inter, "Helvetica Neue", Arial, sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     if ("letterSpacing" in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = "0.6px";
-    for (const item of v.banner.slice(0, 3)) {
+    for (const item of v.banner.slice(0, 2)) {
       const age = v.time - item.at;
-      if (age < 0 || age > 5) continue;
-      const alpha = Math.min(1, age / 0.25) * Math.min(1, (5 - age) / 0.8);
-      ctx.globalAlpha = alpha;
+      if (age < 0 || age > 3.2) continue;
+      const alpha = Math.min(1, age / 0.2) * Math.min(1, (3.2 - age) / 0.6);
+      const textW = ctx.measureText(item.label).width;
+      const w = Math.round(textW + 22);
+      const x = Math.round(boardW / 2 - w / 2);
+      ctx.globalAlpha = alpha * 0.9;
       ctx.fillStyle = item.team === 0 ? COLORS.cream : COLORS.brown;
-      ctx.fillRect(margin, y, w, rowH);
-      if (item.team === 1) {
-        ctx.strokeStyle = "rgba(246,234,204,0.3)";
-        ctx.lineWidth = 1;
-        ctx.strokeRect(margin + 0.5, y + 0.5, w - 1, rowH - 1);
-      }
+      ctx.fillRect(x, y, w, rowH);
+      ctx.strokeStyle = item.team === 0 ? "rgba(27,15,7,0.35)" : "rgba(246,234,204,0.35)";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x + 0.5, y + 0.5, w - 1, rowH - 1);
       ctx.fillStyle = item.team === 0 ? COLORS.ink : COLORS.gold;
-      ctx.fillText(item.label, Math.round(boardW / 2), Math.round(y + rowH / 2) + 1);
+      ctx.fillText(item.label, Math.round(boardW / 2), y + rowH / 2 + 1);
       y += rowH + 3;
     }
     ctx.restore();

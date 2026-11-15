@@ -1,5 +1,7 @@
 # Obsidian Break: Latte vs Roast
 
+Play it at **https://obsidianbreak.github.io/**. Source: https://github.com/obsidianbreak/obsidianbreak.github.io
+
 A mobile first territory duel. You play **Latte** (cream tiles, dark balls). An adaptive AI plays **Roast** (brown tiles, gold balls). Balls bounce around your own land and flip every enemy tile they touch. Drag to pull your balls toward the front line, grab gift tiles, spend energy on cards, and own more of the board when time runs out.
 
 The visual layer is a small TouchDesigner style operator network (Voronoi, Feedback, Level) running in WebGL2. The difficulty layer is a director made of a PID flow controller, a JSON rules engine, a contextual bandit and a simulation based level generator.
@@ -36,7 +38,7 @@ npm run typecheck
 npm run build      # outputs dist/ for GitHub Pages
 ```
 
-Deployment is unchanged: `.github/workflows/deploy.yml` builds and publishes to GitHub Pages. The base path is `/obsidianBreak/`, override with `VITE_BASE_PATH`.
+Deployment: `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `main`. In the repo go to Settings, Pages, and set Source to **GitHub Actions**. This is a user site, so it is served from the domain root and the Vite base path is `/`. Override it with `VITE_BASE_PATH` only if you move the game to a subpath.
 
 ## Optional: anonymous experiment telemetry
 
