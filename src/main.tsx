@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { armAudioUnlock } from "./engine/sharedAudioContext";
 import { syncAppSize } from "./lib/viewport";
+import { mountIosHaptics } from "./lib/haptics";
 
 armAudioUnlock();
 
@@ -27,6 +28,8 @@ document.addEventListener(
   },
   { passive: false },
 );
+
+mountIosHaptics();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

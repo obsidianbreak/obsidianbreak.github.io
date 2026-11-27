@@ -10,6 +10,7 @@ import type { MatchKind } from "./duel/Generator";
 import type { MatchEnd } from "./game/DuelEngine";
 import { ensureGoals, loadSave, writeSave } from "./lib/save";
 import { enterFullscreen } from "./lib/viewport";
+import { setHapticsEnabled } from "./lib/haptics";
 import type { SaveData, Settings } from "./lib/save";
 import "./styles/global.css";
 
@@ -58,6 +59,7 @@ export default function App() {
     };
   }, [director, planNext]);
 
+  useEffect(() => { setHapticsEnabled(save.settings.haptics); }, [save.settings.haptics]);
   const night = save.settings.theme === "night";
   useEffect(() => {
     foamBus.intensity = view === "match" ? 0.42 : 1;
