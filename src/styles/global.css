@@ -774,3 +774,25 @@ dd {
 :root[data-theme="night"] .pausebtn {
   box-shadow: inset 0 0 0 1px rgba(246, 234, 204, 0.16);
 }
+
+/* iPhone haptics: invisible switch laid over each control (see src/lib/haptics.ts) */
+.hx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0.02;
+  z-index: 3;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  touch-action: pan-x pan-y;
+}
+.haptics-off .hx,
+button:disabled > .hx {
+  display: none;
+}
